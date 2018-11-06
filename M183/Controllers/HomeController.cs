@@ -13,18 +13,27 @@ namespace M183.Controllers
             return View();
         }
 
-        public ActionResult About()
+        [HttpPost]
+        public ActionResult Logout()
         {
-            ViewBag.Message = "Your application description page.";
+            DeleteHttpCookies();
+            DeleteSession();
 
-            return View();
+            return View("Index");
         }
 
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
+        public void DeleteHttpCookies()
+        { 
+            //this doesnt work
+            Response.Cookies.Remove("UserProfile");
 
-            return View();
+            //only this
+            Response.Cookies["UserProfile"].Expires = DateTime.Now.AddDays(-1);
         }
+        public void DeleteSession()
+        {
+            Session["IsLoggedIn"] = null;            
+        }
+
     }
 }

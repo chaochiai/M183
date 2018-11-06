@@ -1,0 +1,15 @@
+﻿@model M183.ViewModels.XSSAttackViewModel
+
+@{
+    ViewBag.Title = "XSSAttack";
+}
+
+<h2>XSSAttack</h2>
+
+@Scripts.Render("~/bundles/jquery")
+<script>
+    $(document).ready(function () {
+        var allCookies = document.cookie;
+        alert(allCookies);
+    });
+</script>

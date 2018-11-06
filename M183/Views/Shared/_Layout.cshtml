@@ -21,11 +21,19 @@
                 @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                </ul>
+                @if (Session["IsLoggedIn"] != null)
+                {
+                    <ul class="nav navbar-nav pull-right">
+                        <li>
+                            @using (Html.BeginForm("Logout", "Home", FormMethod.Post))
+                            {
+                                <input type="submit" value="Sign out" onclick="signOut()" class="btn btn-primary" />
+                            }
+                            @*<a href="#" onclick="signOut()">Sign out</a>*@
+
+                        </li>
+                    </ul>
+                }
             </div>
         </div>
     </div>
@@ -54,13 +62,24 @@
             console.log('Token ID: ' + tokenID);
 
             var xhr = new XMLHttpRequest();
-            xhr.open('POST', 'http://localhost:49670/Home/SSOTokenSignin');
+            xhr.open('POST', 'http://localhost:49854/SingleSignOn/SSOTokenSignIn');
             xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
             xhr.onload = function () {
                 console.log('Signed in as: ' + xhr.responseText);
             }
             xhr.send('tokenid=' + tokenID);
         }
+
+        function signOut() {
+            if (gapi != null && gapi != undefined) {
+                if (gapi.auth2 != null && gapi.auth2 != undefined) {
+                    var auth2 = gapi.auth2.getAuthInstance();
+                    auth2.signOut();
+                }
+            }
+            
+        }
+
     </script>
 </body>
 </html>
