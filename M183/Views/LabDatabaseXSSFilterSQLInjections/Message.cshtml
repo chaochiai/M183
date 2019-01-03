@@ -1,0 +1,40 @@
+﻿@model M183.ViewModels.MessageViewModel
+@{
+    ViewBag.Title = "Message";
+}
+
+<h2>Database XSS/SQL Injection - Message</h2>
+
+<div class="row">
+    <div class="col-lg-6 col-lg-offset-0 well">
+        @if (Session["IsLoggedIn"] == null)
+        {
+            using (Html.BeginForm("Message", "LabDatabaseXSSFilterSQLInjections", FormMethod.Post))
+            {
+                <div>
+                    @Html.LabelFor(m => m.Message)
+                </div>
+                <div>
+                    @Html.TextAreaFor(m => m.Message, new { @class = "form-control" })
+                </div>
+                <div>
+                    @Html.ValidationMessageFor(m => m.Message, "", new { @class = "error-message" })
+                </div>
+                <div>
+                    <br />
+                    <input type="submit" value="Submit" class="btn btn-primary" />@ViewBag.Message
+                </div>
+            }
+        }
+        else
+        {
+            <div>
+                @ViewBag.Message
+            </div>
+        }
+
+    </div>
+</div>
+<div>
+    <p>@Html.ActionLink("Go Back", "Index", "LabDatabaseXSSFilterSQLInjections")</p>
+</div>

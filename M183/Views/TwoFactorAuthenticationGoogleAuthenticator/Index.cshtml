@@ -1,27 +1,19 @@
-﻿
-@{
-    ViewBag.Title = "Index";
+﻿@{
+    ViewBag.Title = "Two Factor Authentication SMS";
 }
 
+
+<h2>Two Factor Authentication Google Authenticator</h2>
 <div class="row">
-    <div class="col-md-8 col-md-offset-2" style="margin-top:60px;">
-        <form class="well" action="~/TwoFactorAuthenticationGoogleAuthenticator/Login">
-            <label>Username</label>
-            <input type="text" class="form-control" name="username" />
-            <br /><br />
-
-            <label>Password</label>
-            <input type="password" class="form-control" name="password" />
-            <br /><br />
-
-            <label>Token</label>
-            <input type="text" class="form-control" name="token" />
-            <br /><br />
-
-
-            <button type="submit" class="btn btn-primary" >Log in</button>
-        </form>
+    <div class="col-lg-6 col-lg-offset-0 well">
+        <p>
+            @Html.ActionLink("Log in", "Login", "TwoFactorAuthenticationGoogleAuthenticator")
+        </p>
+        <p>
+            @Html.ActionLink("Set up Authentication", "SetupAuthentication", "TwoFactorAuthenticationGoogleAuthenticator")
+        </p>
     </div>
 </div>
-
-
+<div>
+    <p>@Html.ActionLink("Go Back", "Index", "Home")</p>
+</div>

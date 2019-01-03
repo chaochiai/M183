@@ -1,0 +1,50 @@
+﻿@model M183.ViewModels.LoginViewModel
+
+@{
+    ViewBag.Title = "Login";
+}
+
+<h2>Database XSS/SQL Injection - Log in</h2>
+
+<div class="row">
+    <div class="col-lg-6 col-lg-offset-0 well">
+        @if (Session["IsLoggedIn"] == null)
+        {
+            using (Html.BeginForm("Login", "LabDatabaseXSSFilterSQLInjections", FormMethod.Post))
+            {
+                <div>
+                    @Html.LabelFor(m => m.Username)
+                </div>
+                <div>
+                    @Html.TextBoxFor(m => m.Username, new { @class = "form-control" })
+                </div>
+                <div>
+                    @Html.ValidationMessageFor(m => m.Username, "", new { @class = "error-message" })
+                </div>
+
+                <div>
+                    @Html.LabelFor(m => m.Password)
+                </div>
+                <div>
+                    @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                </div>
+                <div>
+                    @Html.ValidationMessageFor(m => m.Password, "", new { @class = "error-message" })
+                </div>
+                <div>
+                    <br />
+                    <input type="submit" value="Login" class="btn btn-primary" /> @ViewBag.Message
+                </div>
+            }
+        }
+        else
+        {
+            <div>
+                @ViewBag.Message
+            </div>
+        }
+    </div>
+</div>
+<div>
+    <p>@Html.ActionLink("Go Back", "Index", "LabDatabaseXSSFilterSQLInjections")</p>
+</div>

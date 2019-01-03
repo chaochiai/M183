@@ -2,9 +2,12 @@
 @{
     ViewBag.Title = "SetupAuthentication";
 }
-
+<h2>Two Factor Authentication Google Authenticator - Setup Authentication</h2>
 <div class="row">
-    <div class="col-lg-8 col-lg-offset-2 well" style="margin-top:60px;">
+    <div class="col-lg-6 col-lg-offset-0 well">
         @Html.Raw(ViewBag.Message)
     </div>
+</div>
+<div>
+    <p>@Html.ActionLink("Go Back", "Index", "TwoFactorAuthenticationGoogleAuthenticator")</p>
 </div>

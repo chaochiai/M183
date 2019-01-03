@@ -1,4 +1,5 @@
 ﻿using Google.Authenticator;
+using M183.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,25 +21,26 @@ namespace M183.Controllers
             TwoFactorAuthenticator twoFactorAuthenticator = new TwoFactorAuthenticator();
             SetupCode setupCode = twoFactorAuthenticator.GenerateSetupCode("M183", "chantalochiaiit@gmail.com", "My_Secret_Key", 300, 300);
 
-            string qrCodeImageUrl = setupCode.QrCodeSetupImageUrl;
-            string manualEntrySetupCode = setupCode.ManualEntryKey;
-
-            ViewBag.Message = "<h2>QR-Code:</h2> <br/><br/> <img src=''" + qrCodeImageUrl + " /> <br/><br/> <h2>Token for manual entry</h2> <br/>" + manualEntrySetupCode;
+            ViewBag.Message = "<h2>QR-Code:</h2> <br/><br/> " +
+                "<img src='" + setupCode.QrCodeSetupImageUrl + "' /> <br/><br/> " +
+                "<h2>Token for manual entry</h2> <br/>" +
+                setupCode.ManualEntryKey;
 
             return View();
         }
 
-        [HttpPost]
         public ActionResult Login()
         {
-            string username = Request["username"];
-            string password = Request["password"];
-            string token = Request["token"];
+            return View();
+        }
 
-            if (username == "chaochiai" && password == "test")
+        [HttpPost]
+        public ActionResult Login(LoginViewModel loginViewModel)
+        {
+            if (loginViewModel.Username == "username" && loginViewModel.Password == "password")
             {
                 TwoFactorAuthenticator twoFactorAuthenticator = new TwoFactorAuthenticator();
-                bool isPinCorrect = twoFactorAuthenticator.ValidateTwoFactorPIN("My_Secret_Key", token);
+                bool isPinCorrect = twoFactorAuthenticator.ValidateTwoFactorPIN("My_Secret_Key", loginViewModel.TOTPToken);
 
                 if (isPinCorrect)
                 {
@@ -46,13 +48,12 @@ namespace M183.Controllers
                 }
                 else
                 {
-                    ViewBag.Message = "Log in credentials and token are wrong";
+                    ViewBag.Message = "The token entered is incorrect";
                 }
-
             }
             else
             {
-                ViewBag.Message = "Wrong credentials";
+                ViewBag.Message = "The credentials are incorrect";
             }
             return View();
         }

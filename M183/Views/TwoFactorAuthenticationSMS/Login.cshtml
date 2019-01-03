@@ -1,18 +1,39 @@
-﻿
+﻿@model M183.ViewModels.LoginViewModel
 @{
-    ViewBag.Title = "Login";
+    ViewBag.Title = "Log in";
 }
+<h2>Two Factor Authentication SMS - Log in</h2>
 
-<div class="row" style="margin-top:80px;">
-    <div class="col-lg-8 col-lg-offset-2">
-        <legend>Token Log in</legend>
-        <form class="well" action="~/Home/TokenLogin" method="post">
-            <legend><small>Token</small></legend>
-            <input type="text" name="token" class="form-control" />
-            <br />
+<div class="row">
+    <div class="col-lg-6 col-lg-offset-0">
+        @using (Html.BeginForm("Login", "TwoFactorAuthenticationSMS", FormMethod.Post, new { @class = "well" }))
+        {
+            <div>
+                @Html.LabelFor(m => m.Username)
+            </div>
+            <div>
+                @Html.TextBoxFor(m => m.Username, new { @class = "form-control" })
+            </div>
+            <div>
+                @Html.ValidationMessageFor(m => m.Username, "", new { @class = "error-message" })
+            </div>
 
-            <input type="submit" name="" value="Verify" class="btn btn-primary" />
-        </form>
+            <div>
+                @Html.LabelFor(m => m.Password)
+            </div>
+            <div>
+                @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+            </div>
+            <div>
+                @Html.ValidationMessageFor(m => m.Password, "", new { @class = "error-message" })
+            </div>
+            <div>
+                <br />
+                <input type="submit" value="Log in" class="btn btn-primary" /> @ViewBag.Message
+            </div>
+        }
     </div>
 </div>
-
+<div>
+    <p>@Html.ActionLink("Go Back", "Index", "Home")</p>
+</div>

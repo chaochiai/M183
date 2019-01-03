@@ -1,22 +1,17 @@
 ﻿
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Two Factor Authentication SMS";
 }
 
-<div class="row" style="margin-top:80px;">
-    <div class="col-lg-8 col-lg-offset-2">
-        <legend>Log in</legend>
-        <form class="well" action="./Home/Login" method="post">
-            <legend><small>Username</small></legend>
-            <input type="text" name="username" class="form-control" />
-            <br />
 
-            <legend><small>Password</small></legend>
-            <input type="password" name="password" class="form-control" />
-            <br />
-
-            <input type="submit" name="" value="Log in" class="btn btn-primary" />
-        </form>
-    </div>
+<h2>Two Factor Authentication SMS</h2>
+<div class="row">
+    <div class="col-lg-6 col-lg-offset-0 well">
+        <p>
+            @Html.ActionLink("Log in", "Login", "TwoFactorAuthenticationSMS")
+        </p>
+    </div>    
 </div>
-
+<div>
+    <p>@Html.ActionLink("Go Back", "Index", "Home")</p>
+</div>

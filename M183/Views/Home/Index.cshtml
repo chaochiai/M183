@@ -1,33 +1,35 @@
 ﻿@{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "M183";
 }
-
+<h2>Tasks</h2>
 <div class="row">
-    <h1>Tasks</h1>
-    <div>
+    <div class="well">
         <p>
-            @Html.ActionLink("Key Logger", "Index", "KeyLogger")
+            @Html.ActionLink("XXS Key Logger", "Index", "KeyLogger")
         </p>
         <p>
-            @Html.ActionLink("Fake log in", "Index", "FakeLogin")
+            @Html.ActionLink("XSS Fake log in", "Index", "FakeLogin")
         </p>
         <p>
             @Html.ActionLink("UI redress", "Index", "IFrameClickJacking")
         </p>
         <p>
-            @Html.ActionLink("Two factor authentication: SMS", "Index", "TwoFactorAuthenticationSMS")
+            @Html.ActionLink("Two factor authentication OTP: SMS", "Login", "TwoFactorAuthenticationSMS")
         </p>
         <p>
             @Html.ActionLink("Two factor authentication TOTP: Google authenticator", "Index", "TwoFactorAuthenticationGoogleAuthenticator")
         </p>
         <p>
-            @Html.ActionLink("Single sign on", "Index", "SingleSignOn")
+            @Html.ActionLink("Single sign on", "Login", "SingleSignOn")
         </p>
         <p>
             @Html.ActionLink("Lab1", "Login", "Lab1")
         </p>
         <p>
             @Html.ActionLink("Lab2", "Login", "Lab2")
+        </p>
+        <p>
+            @Html.ActionLink("Database XSS/SQL injection", "Index", "LabDatabaseXSSFilterSQLInjections")
         </p>
     </div>
 </div>

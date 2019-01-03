@@ -1,11 +1,48 @@
-﻿
+﻿@model M183.ViewModels.LoginViewModel
 @{
-    ViewBag.Title = "Login";
+    ViewBag.Title = "Log in";
 }
+<h2>Two Factor Authentication Google Authenticator - Log in</h2>
 
 <div class="row">
-    <div class="col-lg-8 col-lg-offset-2 well" style="margin-top:60px;">
-        @Html.Raw(ViewBag.Message)
+    <div class="col-lg-6 col-lg-offset-0">
+        @using (Html.BeginForm("Login", "TwoFactorAuthenticationGoogleAuthenticator", FormMethod.Post, new { @class = "well" }))
+        {
+            <div>
+                @Html.LabelFor(m => m.Username)
+            </div>
+            <div>
+                @Html.TextBoxFor(m => m.Username, new { @class = "form-control" })
+            </div>
+            <div>
+                @Html.ValidationMessageFor(m => m.Username, "", new { @class = "error-message" })
+            </div>
+
+            <div>
+                @Html.LabelFor(m => m.Password)
+            </div>
+            <div>
+                @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+            </div>
+            <div>
+                @Html.ValidationMessageFor(m => m.Password, "", new { @class = "error-message" })
+            </div>
+            <div>
+                @Html.LabelFor(m => m.TOTPToken)
+            </div>
+            <div>
+                @Html.PasswordFor(m => m.TOTPToken, new { @class = "form-control" })
+            </div>
+            <div>
+                @Html.ValidationMessageFor(m => m.TOTPToken, "", new { @class = "error-message" })
+            </div>
+            <div>
+                <br />
+                <input type="submit" value="Log in" class="btn btn-primary" /> @ViewBag.Message
+            </div>
+        }
     </div>
 </div>
-
+<div>
+    <p>@Html.ActionLink("Go Back", "Index", "TwoFactorAuthenticationGoogleAuthenticator")</p>
+</div>

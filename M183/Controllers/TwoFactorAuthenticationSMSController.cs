@@ -1,4 +1,5 @@
-﻿using System;
+﻿using M183.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -17,26 +18,22 @@ namespace M183.Controllers
             return View();
         }
 
-        [HttpPost]
         public ActionResult Login()
         {
-            string username = Request["username"];
-            string password = Request["password"];
+            return View();
+        }
 
-            if (!String.IsNullOrEmpty(username) && !String.IsNullOrEmpty(password))
+        string token = "secret";
+
+        [HttpPost]
+        public ActionResult Login(LoginViewModel loginViewModel)
+        {
+            if (loginViewModel.Username == "username" && loginViewModel.Password == "password")
             {
+                string to = "+41764174413";
+
                 HttpWebRequest request = (HttpWebRequest)WebRequest.Create("https://rest.nexmo.com/sms/json");
-
-                string secret = "secret";
-
-                string postData = "api_key=cc9e52d5";
-                postData += "&api_secret=5vDn023j63OYNSk9";
-                postData += "&to=+41764174413";
-                postData += "&from=\"NEXMO\"";
-                postData += "&text=\"" + secret + "\"";
-
-                byte[] data = Encoding.ASCII.GetBytes(postData);
-
+                byte[] data = Encoding.ASCII.GetBytes("api_key=cc9e52d5&api_secret=5vDn023j63OYNSk9&to="+ to + "&from=\"NEXMO\"&text=\"" + token + "\"");
                 request.Method = "POST";
                 request.ContentType = "application/x-www-form-urlencoded";
                 request.ContentLength = data.Length;
@@ -48,26 +45,33 @@ namespace M183.Controllers
 
                 HttpWebResponse response = (HttpWebResponse)request.GetResponse();
                 string responseString = new StreamReader(response.GetResponseStream()).ReadToEnd();
-
                 ViewBag.Message = responseString;
             }
             else
             {
-                ViewBag.Message = "!!";
+                ViewBag.Message = "The credentials are incorrect";
+                return View();
             }
-
-
-
+            ModelState.Clear();
+            return View("TokenLogin");
+        }
+        public ActionResult TokenLogin()
+        {            
             return View();
         }
 
         [HttpPost]
-        public void TokenLogin()
+        public ActionResult TokenLogin(LoginViewModel loginViewModel)
         {
-            string token = Request["token"];
-
-
-
+            if (token.Equals(loginViewModel.TOTPToken))
+            {
+                ViewBag.Message = "The token entered is correct.";
+            }
+            else
+            {
+                ViewBag.Message = "The token entered is incorrect.";
+            }
+            return View();
         }
     }
 }

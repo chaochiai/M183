@@ -1,0 +1,45 @@
+﻿@model M183.ViewModels.LoginViewModel
+
+@{
+    ViewBag.Title = "Login";
+}
+
+<h2>Single Sign On - Login</h2>
+<div class="signout">
+    <a href="#" onclick="signOut()" class="btn btn-danger">Sign out</a>
+</div>
+
+<div class="row">
+    <div class="col-lg-6 col-lg-offset-0">
+        @using (Html.BeginForm("Login", "SingleSignOn", FormMethod.Post, new { @class = "well" }))
+        {
+            <div>
+                @Html.LabelFor(m => m.Username)
+            </div>
+            <div>
+                @Html.TextBoxFor(m => m.Username, new { @class = "form-control" })
+            </div>
+            <div>
+                @Html.ValidationMessageFor(m => m.Username, "", new { @class = "error-message" })
+            </div>
+
+            <div>
+                @Html.LabelFor(m => m.Password)
+            </div>
+            <div>
+                @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+            </div>
+            <div>
+                @Html.ValidationMessageFor(m => m.Password, "", new { @class = "error-message" })
+            </div>
+            <div>
+                <br />
+                <input type="submit" value="Log in" class="btn btn-primary" />
+                <div class="g-signin2 pull-right" data-onsuccess="onSignIn"></div>
+            </div>
+        }
+    </div>
+</div>
+<div>
+    <p>@Html.ActionLink("Go Back", "Index", "Home")</p>
+</div>

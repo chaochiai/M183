@@ -1,0 +1,29 @@
+﻿@model M183.ViewModels.LoginViewModel
+@{
+    ViewBag.Title = "Token";
+}
+<h2>Two Factor Authentication SMS - Token</h2>
+
+<div class="row">
+    <div class="col-lg-6 col-lg-offset-0">
+        @using (Html.BeginForm("TokenLogin", "TwoFactorAuthenticationSMS", FormMethod.Post, new { @class = "well" }))
+        {
+            <div>
+                @Html.LabelFor(m => m.TOTPToken)
+            </div>
+            <div>
+                @Html.TextBoxFor(m => m.TOTPToken, new { @class = "form-control" })
+            </div>
+            <div>
+                @Html.ValidationMessageFor(m => m.TOTPToken, "", new { @class = "error-message" })
+            </div>
+            <div>
+                <br />
+                <input type="submit" value="Verify" class="btn btn-primary" /> @ViewBag.Message
+            </div>
+        }
+    </div>
+</div>
+<div>
+    <p>@Html.ActionLink("Go Back", "Login", "TwoFactorAuthenticationSMS")</p>
+</div>

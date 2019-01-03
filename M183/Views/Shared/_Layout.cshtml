@@ -18,16 +18,16 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("M183", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
-                @if (Session["IsLoggedIn"] != null)
+                @if (Session["IsLoggedIn"] != null )
                 {
                     <ul class="nav navbar-nav pull-right">
                         <li>
                             @using (Html.BeginForm("Logout", "Home", FormMethod.Post))
                             {
-                                <input type="submit" value="Sign out" onclick="signOut()" class="btn btn-primary" />
+                                <input type="submit" value="Sign out" onclick="signOut()" />
                             }
                             @*<a href="#" onclick="signOut()">Sign out</a>*@
 
@@ -41,7 +41,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            <p>&copy; @DateTime.Now.Year - M183</p>
         </footer>
     </div>
 
@@ -62,12 +62,13 @@
             console.log('Token ID: ' + tokenID);
 
             var xhr = new XMLHttpRequest();
-            xhr.open('POST', 'http://localhost:49854/SingleSignOn/SSOTokenSignIn');
+            xhr.open('POST', 'http://localhost:' + window.location.port + '/SingleSignOn/SSOTokenSignIn');
             xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
             xhr.onload = function () {
                 console.log('Signed in as: ' + xhr.responseText);
             }
             xhr.send('tokenid=' + tokenID);
+
         }
 
         function signOut() {

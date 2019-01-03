@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.SessionState;
+//using System.Web.
 
 namespace M183.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : Controller, IRequiresSessionState
     {
         public ActionResult Index()
         {
@@ -34,6 +36,5 @@ namespace M183.Controllers
         {
             Session["IsLoggedIn"] = null;            
         }
-
     }
 }
