@@ -571,6 +571,9 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Businesslogic\SQLXSSInjection.cs" />
     <Compile Include="Controllers\APIController.cs" />
+    <Compile Include="Controllers\EncryptionCesarCipherController.cs" />
+    <Compile Include="Controllers\EncryptionOneTimePadController.cs" />
+    <Compile Include="Controllers\EncryptionVigenereCipherController.cs" />
     <Compile Include="Controllers\FakeLoginController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IFrameClickJackingController.cs" />
@@ -646,6 +649,9 @@
     <Content Include="Views\Lab2\Index.cshtml" />
     <Content Include="Views\SingleSignOn\Login.cshtml" />
     <Content Include="Views\TwoFactorAuthenticationSMS\TokenLogin.cshtml" />
+    <Content Include="Views\EncryptionCesarCipher\Index.cshtml" />
+    <Content Include="Views\EncryptionVigenereCipher\Index.cshtml" />
+    <Content Include="Views\EncryptionOneTimePad\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
