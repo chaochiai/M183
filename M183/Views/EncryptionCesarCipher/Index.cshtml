@@ -37,51 +37,68 @@
 </div>
 
 <script>
+    //add event listener to the analyse plain text button
     document.getElementById("analyzePlaintext").addEventListener("click", function (e) {
         e.preventDefault();
         e.stopPropagation();
 
+        //get the value of the plain text textbox
         var text = document.getElementById("plaintext").value;
+        //create histogram
         var histogram = createHistogramValues(text);
 
+        //show the table to the view
         document.getElementById("chartPlaintext").innerHTML = createHTMLTable(histogram);
     });
 
+    //add event listener to encrypt button
     document.getElementById("encrypt").addEventListener("click", function (e) {
         e.preventDefault();
         e.stopPropagation();
 
+        //get the value of plaintext text box
         var plaintext = document.getElementById("plaintext").value;
+
+        //get the value of shift text box
         var shift = document.getElementById("shift").value;
 
+        //show the result to the view
         document.getElementById("ciphertext").innerHTML = createAlphabeticalShift(plaintext, shift);
     });
 
+    //add event listener to the analyse cipher text button
     document.getElementById("analyzeCiphertext").addEventListener("click", function (e) {
         e.preventDefault();
         e.stopPropagation();
 
+        //get the value of ciphertext text box
         var text = document.getElementById("ciphertext").value;
+        //create histogram
         var histogram = createHistogramValues(text);
-
+        //show the result to the view
         document.getElementById("chartCiphertext").innerHTML = createHTMLTable(histogram);
     });
 
+    //add event listener to the decrypt button
     document.getElementById("decrypt").addEventListener("click", function (e) {
         e.preventDefault();
         e.stopPropagation();
 
+        //get the value of ciphertext text box
         var ciphertext = document.getElementById("ciphertext").value;
+        //get the value of backshift text box
         var shift = document.getElementById("backshift").value;
-
+        //show the result to the view
         document.getElementById("ciphertext").innerHTML = createAlphabeticalShift(ciphertext, shift);
     });
 
+    //create histogram values
     function createHistogramValues(text) {
         var histogramPrepare = [];
 
         for (var i = 0, len = text.length; i< len; i++) {
             var letter = text[i];
+            //letter
             if (letter.match(/[a-z]/i))
             {
                 histogramPrepare[letter] = (histogramPrepare[letter] || 0) + 1;
@@ -97,6 +114,7 @@
         return histogram;
     }
 
+    //creates the table to show the keys and histograms
     function createHTMLTable(histogram)
     {
         var html = "<table>";
@@ -110,6 +128,7 @@
         return html;
     }
 
+    //create alphabetical shift function
     function createAlphabeticalShift(text, shift) {
         shift = parseInt(shift);
         if (shift < 0) shift = 26 + shift;
@@ -119,7 +138,7 @@
         for (var i = 0; i < text.length; i++) {
             var c = text[i];
             var tempchar = "";
-
+            //if the text is a letter
             if (c.match(/[a-z]/i)) {
                 var code = text.charCodeAt(i);
 

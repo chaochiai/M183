@@ -25,12 +25,12 @@
                 {
                     <ul class="nav navbar-nav pull-right">
                         <li>
+                            @* logout for other log in forms *@
                             @using (Html.BeginForm("Logout", "Home", FormMethod.Post))
                             {
+                                //log out for single sign on
                                 <input type="submit" value="Sign out" onclick="signOut()" />
                             }
-                            @*<a href="#" onclick="signOut()">Sign out</a>*@
-
                         </li>
                     </ul>
                 }
@@ -51,9 +51,12 @@
     <script src="https://apis.google.com/js/platform.js" async defer></script>
 
     <script type="text/javascript">
+        //log in function for single sign on
         function onSignIn(googleUser) {
+            //token id
             var tokenID = googleUser.getAuthResponse().id_token;
 
+            //get profile
             var profile = googleUser.getBasicProfile();
             console.log('ID: ' + profile.getId());
             console.log('Name: ' + profile.getName());
@@ -61,6 +64,7 @@
             console.log('Email: ' + profile.getEmail());
             console.log('Token ID: ' + tokenID);
 
+            //send the token to controller
             var xhr = new XMLHttpRequest();
             xhr.open('POST', 'http://localhost:' + window.location.port + '/SingleSignOn/SSOTokenSignIn');
             xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
@@ -71,6 +75,7 @@
 
         }
 
+        //sign out function for single sign on
         function signOut() {
             if (gapi != null && gapi != undefined) {
                 if (gapi.auth2 != null && gapi.auth2 != undefined) {

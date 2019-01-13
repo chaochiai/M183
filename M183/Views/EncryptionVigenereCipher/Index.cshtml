@@ -39,51 +39,67 @@
 </div>
 
 <script>
+    //add event listener to the analyse plain text button
     document.getElementById("analyzePlaintext").addEventListener("click", function (e) {
         e.preventDefault();
         e.stopPropagation();
 
+        //gets the value of the plaintext text box
         var text = document.getElementById("plaintext").value;
+        //creates histogram values
         var histogram = createHistogramValues(text);
 
+        //show the result to the view
         document.getElementById("chartPlaintext").innerHTML = createHTMLTable(histogram);
     });
 
+    //add event listener to the encrypt button
     document.getElementById("encrypt").addEventListener("click", function (e) {
         e.preventDefault();
         e.stopPropagation();
 
+        //gets the value of the plaintext text box
         var plaintext = document.getElementById("plaintext").value;
+        //gets the value of the encryptkey text box
         var key = document.getElementById("encryptkey").value;
-
+        //show the result to the view
         document.getElementById("ciphertext").innerHTML = createVigenere(plaintext, key);
     });
 
+    //add event listener to the analyse cipher text button
     document.getElementById("analyzeCiphertext").addEventListener("click", function (e) {
         e.preventDefault();
         e.stopPropagation();
 
+        //gets the value of the ciphertext text box
         var text = document.getElementById("ciphertext").value;
+        //creates histogram values
         var histogram = createHistogramValues(text);
-
+        //show the result to the view
         document.getElementById("chartCiphertext").innerHTML = createHTMLTable(histogram);
     });
 
+    //add event listener to the decrypt button
     document.getElementById("decrypt").addEventListener("click", function (e) {
         e.preventDefault();
         e.stopPropagation();
 
+        //gets the value of the ciphertext text box
         var plaintext = document.getElementById("ciphertext").value;
+        //gets the value of the decryptkey text box
         var key = document.getElementById("decryptkey").value;
 
+        //show the result to the view
         document.getElementById("ciphertext").innerHTML = decryptVigenere(plaintext, key);
     });
 
+    //creates the histogram values
     function createHistogramValues(text) {
         var histogramPrepare = [];
 
         for (var i = 0, len = text.length; i< len; i++) {
             var letter = text[i];
+            //if text is a letter
             if (letter.match(/[a-z]/i))
             {
                 histogramPrepare[letter] = (histogramPrepare[letter] || 0) + 1;
@@ -99,6 +115,7 @@
         return histogram;
     }
 
+    //creates the html table to show the key and histogram
     function createHTMLTable(histogram)
     {
         var html = "<table>";
@@ -112,12 +129,14 @@
         return html;
     }
 
+    //creates vigenere
     function createVigenere(input, key) {
         var output = "";
         for (var i = 0, j = 0; i < input.length; i++) {
             var char = input[i];
-
+            //if character is a letter
             if (char.match(/[a-z]/i)) {
+                //get code
                 var c = input.charCodeAt(i);
                 var keyCharShift = key[j % key.length].charCodeAt(0);
                 //uppercase letters
@@ -135,15 +154,17 @@
         return output;
     }
 
+    //decrypts vigenere
     function decryptVigenere(input, key) {
         var output = "";
 
         for (var i = 0, j = 0; i < input.length; i++) {
             var char = input[i];
 
+            //check if character is a letter
             if (char.match(/[a-z]/i)) {
                 var cr = parseInt(input.charCodeAt(i));
-
+                //uppercase
                 if ((cr >= 65) && (cr <= 90)) {
                     var c = parseInt(cr - 65);
                     var keyCharShift = parseInt(key[i].charCodeAt(0) - 65);
@@ -155,6 +176,7 @@
                     output += String.fromCharCode(newCharPosition + 65);
 
                     j++;
+                //lowercase
                 } else if ((cr >= 97) && (cr <= 122)) {
                     var c = parseInt(cr - 97);
                     var keyCharShift = parseInt(key[j % key.length].charCodeAt(0) - 97);

