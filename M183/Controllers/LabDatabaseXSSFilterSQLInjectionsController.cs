@@ -75,9 +75,9 @@ namespace M183.Controllers
             {
                 SqlConnection sqlConnection = new SqlConnection();
                 sqlConnection.ConnectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;
-AttachDbFilename=C:\M183\M183\Database\SQLXSSInjection.mdf;
-Integrated Security=True;
-Connect Timeout=30";
+                    AttachDbFilename=C:\M183\M183\Database\SQLXSSInjection.mdf;
+                    Integrated Security=True;
+                    Connect Timeout=30";
 
                 SqlCommand sqlCommand = new SqlCommand();
                 //SqlDataReader sqlDataReader;

@@ -1,0 +1,51 @@
+﻿@model IEnumerable<M183.ViewModels.UserLogViewModel>
+
+@{
+    ViewBag.Title = "User log";
+}
+
+<h2>Logging Audit Trails and Intrusion Detection - User log</h2>
+
+<div class="row">
+    <div class="col-lg-6 col-lg-offset-0 well">
+        @if (Model != null && Model.Count() > 0)
+        {
+            <table class="table">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(m => m.UserId)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(m => m.LogId)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(m => m.LogCreatedOn)
+                    </th>
+                </tr>
+                @foreach (M183.ViewModels.UserLogViewModel userLogViewModel in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(m => userLogViewModel.UserId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(m => userLogViewModel.LogId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(m => userLogViewModel.LogCreatedOn)
+                        </td>
+                    </tr>
+                }
+            </table>
+        }
+        else
+        {
+            <div>
+                @ViewBag.Message
+            </div>
+        }
+    </div>
+</div>
+<div>
+    <p>@Html.ActionLink("Go Back", "Index", "LoggingAuditTrailsandInstrusionDectection")</p>
+</div>

@@ -26,8 +26,6 @@ namespace M183.Controllers
 
         public JsonResult SSOTokenSignIn()
         {
-            //homeController.CreateUserProfileSession();
-
             string tokenID = Request["tokenid"];
             HttpWebRequest httpWebRequest = (HttpWebRequest)WebRequest.Create("https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=" + tokenID);
             byte[] data = Encoding.ASCII.GetBytes("id_token" + tokenID);

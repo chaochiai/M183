@@ -581,6 +581,8 @@
     <Compile Include="Controllers\Lab1Controller.cs" />
     <Compile Include="Controllers\Lab2Controller.cs" />
     <Compile Include="Controllers\LabDatabaseXSSFilterSQLInjectionsController.cs" />
+    <Compile Include="Controllers\LoggingAuditTrailsAndInstrusionDectectionController.cs" />
+    <Compile Include="Controllers\SelfSignedCertificateController.cs" />
     <Compile Include="Controllers\SingleSignOnController.cs" />
     <Compile Include="Controllers\TwoFactorAuthenticationSMSController.cs" />
     <Compile Include="Controllers\TwoFactorAuthenticationGoogleAuthenticatorController.cs" />
@@ -590,6 +592,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\MessageViewModel.cs" />
+    <Compile Include="ViewModels\UserLogViewModel.cs" />
     <Compile Include="ViewModels\XSSAttackViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -617,6 +620,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Views\SelfSignedCertificate\Certificate.PNG" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -652,6 +656,10 @@
     <Content Include="Views\EncryptionCesarCipher\Index.cshtml" />
     <Content Include="Views\EncryptionVigenereCipher\Index.cshtml" />
     <Content Include="Views\EncryptionOneTimePad\Index.cshtml" />
+    <Content Include="Views\SelfSignedCertificate\Index.cshtml" />
+    <Content Include="Views\LoggingAuditTrailsAndInstrusionDectection\Login.cshtml" />
+    <Content Include="Views\LoggingAuditTrailsAndInstrusionDectection\UserLog.cshtml" />
+    <Content Include="Views\LoggingAuditTrailsAndInstrusionDectection\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
